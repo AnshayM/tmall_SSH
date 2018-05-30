@@ -65,7 +65,7 @@ public class Page {
 	/**
 	 * 获取最后一页页码
 	 */
-	private int getLast() {
+	public int getLast() {
 		int last;
 		// 假设总数是50，可以被5整除，则最后一页开始是45
 		if (0 == total % count) {
