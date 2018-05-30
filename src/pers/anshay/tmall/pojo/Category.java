@@ -19,6 +19,7 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	int id;
+
 	String name;
 
 	public int getId() {

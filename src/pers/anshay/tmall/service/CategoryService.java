@@ -1,0 +1,12 @@
+package pers.anshay.tmall.service;
+
+import java.util.List;
+
+/**
+ * @author Anshay
+ * @date 2018年5月29日
+ * @explain 接口，用于提供业务方法list()，即查询所有的分类
+ */
+public interface CategoryService {
+	public List list();
+}

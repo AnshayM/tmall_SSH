@@ -14,11 +14,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository("dao")
 public class DAOImpl extends HibernateTemplate {
-	/*
-	 * 提供setSessionFactory()方法， 以用于注入SessionFactory
-	 */
 	@Resource(name = "sf")
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		super.setSessionFactory(sessionFactory);
-	}
+	};
 }
