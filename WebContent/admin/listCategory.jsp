@@ -63,9 +63,8 @@
 	</div>
 
 	<div class="pageDiv">
-		<%
-			//@include file="../include/admin/adminPage.jsp"
-		%>
+		<!-- 将分页引入页面 -->
+		<%@include file="../include/admin/adminPage.jsp"%> 
 	</div>
 
 	<div class="panel panel-warning addDiv">

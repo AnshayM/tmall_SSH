@@ -1,7 +1,7 @@
 package pers.anshay.tmall.action;
 
 import java.util.List;
-import java.util.Locale.Category;
+
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -10,7 +10,9 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import pers.anshay.tmall.pojo.Category;
 import pers.anshay.tmall.service.CategoryService;
+import pers.anshay.tmall.util.Page;
 
 /**
  * @author Anshay
@@ -36,9 +38,17 @@ public class CategoryAction {
 
 	List<Category> categorys;
 
+	Page page;
+
 	@Action("admin_category_list")
 	public String list() {
-		categorys = categoryService.list();
+		if (page == null) {
+			page = new Page();
+		}
+		int total = categoryService.total();
+		page.setTotal(total);
+		// categorys = categoryService.list();
+		categorys = categoryService.listByPage(page);
 		System.out.println(categorys);
 		return "listCategory";
 	}
@@ -51,4 +61,11 @@ public class CategoryAction {
 		this.categorys = categorys;
 	}
 
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
 }

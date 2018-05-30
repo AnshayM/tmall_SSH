@@ -22,7 +22,7 @@ import pers.anshay.tmall.pojo.Category;
 public class TestTmall {
 	@Autowired
 	DAOImpl dao;
-
+/*
 	@Test
 	public void delete() {
 		DetachedCriteria dc = DetachedCriteria.forClass(Category.class);
@@ -30,7 +30,7 @@ public class TestTmall {
 		for (Category c : cs) {
 			dao.delete(c);
 		}
-	}
+	}*/
 
 	@Test
 	public void test() {
