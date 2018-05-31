@@ -8,6 +8,7 @@
 <!-- 3. 使用basicstruts，与CategoryAction 中的相对应basicstruts相对应。 -->
 
 <struts>
+	<constant name="struts.multipart.maxSize" value="10240000" />
 	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
 	<constant name="struts.objectFactory" value="spring" />
 	<package name="basicstruts" extends="struts-default">

@@ -11,6 +11,9 @@ import pers.anshay.tmall.util.Page;
  * @explain 接口，用于提供业务方法list()，即查询所有的分类
  */
 public interface CategoryService {
+	/**
+	 * 列表显示
+	 */
 	public List list();
 
 	/**
@@ -22,4 +25,9 @@ public interface CategoryService {
 	 * 获取查询结果
 	 */
 	public List<Category> listByPage(Page page);
+
+	/**
+	 * 添加
+	 */
+	public void save(Category category);
 }

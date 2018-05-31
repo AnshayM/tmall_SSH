@@ -31,28 +31,30 @@ public class CategoryServiceImpl implements CategoryService {
 		return dao.findByCriteria(dc);
 	}
 
-	/*
-	 * 查询数据库获取分类总数
-	 */
+	/* 查询数据库获取分类总数 */
 	@Override
 	public int total() {
 		String hql = "select count(*) from Category";
 		List<Long> l = dao.find(hql);
-		if(l.isEmpty()) {
+		if (l.isEmpty()) {
 			return 0;
-		} 
+		}
 		Long result = l.get(0);
 		return result.intValue();
 	}
 
-	/*
-	 * 获取Category的查询结果集
-	 */
+	/* 获取Category的查询结果集 */
 	@Override
 	public List<Category> listByPage(Page page) {
 		DetachedCriteria dc = DetachedCriteria.forClass(Category.class);
 		dc.addOrder(Order.desc("id"));
 		return dao.findByCriteria(dc, page.getStart(), page.getCount());
+	}
+
+	/* 添加新分类 */
+	@Override
+	public void save(Category category) {
+		dao.save(category);
 	}
 
 }
