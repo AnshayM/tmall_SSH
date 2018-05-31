@@ -82,6 +82,16 @@ public class CategoryAction {
 		return "listCategoryPage";
 	}
 
+	/**
+	 * 删除分类
+	 */
+	@Action("admin_category_delete")
+	public String delete() {
+		categoryService.delete(category);
+		return "listCategoryPage";
+
+	}
+
 	public List<Category> getCategorys() {
 		return categorys;
 	}

@@ -57,4 +57,10 @@ public class CategoryServiceImpl implements CategoryService {
 		dao.save(category);
 	}
 
+	/* 删除分类 */
+	@Override
+	public void delete(Category category) {
+		dao.delete(category);
+	}
+
 }

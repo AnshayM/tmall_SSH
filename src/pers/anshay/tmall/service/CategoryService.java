@@ -30,4 +30,6 @@ public interface CategoryService {
 	 * 添加
 	 */
 	public void save(Category category);
+	
+	public void delete(Category category);
 }
