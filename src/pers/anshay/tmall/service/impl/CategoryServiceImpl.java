@@ -63,4 +63,10 @@ public class CategoryServiceImpl implements CategoryService {
 		dao.delete(category);
 	}
 
+	/* 根据id获取指定的分类实体，用于编辑修改 */
+	@Override
+	public Category get(Class clazz, int id) {
+		return (Category) dao.get(clazz, id);
+	}
+
 }

@@ -30,6 +30,14 @@ public interface CategoryService {
 	 * 添加
 	 */
 	public void save(Category category);
-	
+
+	/**
+	 * 删除
+	 */
 	public void delete(Category category);
+
+	/**
+	 * 获取指定的分类实体，用于进行修改
+	 */
+	public Category get(Class clazz, int id);
 }

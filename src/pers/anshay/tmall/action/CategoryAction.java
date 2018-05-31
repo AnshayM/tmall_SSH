@@ -37,7 +37,8 @@ import pers.anshay.tmall.util.Page;
 @Results({
 		/* 分类管理 */
 		@Result(name = "listCategory", location = "/admin/listCategory.jsp"),
-		@Result(name = "listCategoryPage", type = "redirect", location = "/admin_category_list"), })
+		@Result(name = "listCategoryPage", type = "redirect", location = "/admin_category_list"),
+		@Result(name = "editCategory", location = "/admin/editCategory.jsp"), })
 
 public class CategoryAction {
 
@@ -90,6 +91,16 @@ public class CategoryAction {
 		categoryService.delete(category);
 		return "listCategoryPage";
 
+	}
+
+	/**
+	 * 对指定的分类实体进行编辑
+	 */
+	@Action("admin_category_edit")
+	public String edit() {
+		int id = category.getId();
+		category = categoryService.get(Category.class, id);
+		return "editCategory";
 	}
 
 	public List<Category> getCategorys() {
