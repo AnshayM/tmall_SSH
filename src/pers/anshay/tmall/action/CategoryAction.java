@@ -48,6 +48,9 @@ public class CategoryAction {
 	Category category;
 	File img;
 
+	/**
+	 * 列表显示商品分类表
+	 */
 	@Action("admin_category_list")
 	public String list() {
 		if (page == null) {
@@ -55,12 +58,14 @@ public class CategoryAction {
 		}
 		int total = categoryService.total();
 		page.setTotal(total);
-		// categorys = categoryService.list();
 		categorys = categoryService.listByPage(page);
 		System.out.println(categorys);
 		return "listCategory";
 	}
 
+	/**
+	 * 添加分类
+	 */
 	@Action("admin_category_add")
 	public String add() {
 		categoryService.save(category);
@@ -68,15 +73,13 @@ public class CategoryAction {
 		File file = new File(imageFolder, category.getId() + ".jpg");
 		try {
 			FileUtils.copyFile(img, file);
-			BufferedImage img = ImageUtil.change2ipg(file);
+			BufferedImage img = ImageUtil.change2jpg(file);
 			ImageIO.write(img, "jpg", file);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
-		// 再次请求列表显示页面达到刷新效果
-		return "listCategory";
-
+		// 这里如果直接返回“listCategory”,则在刷新页面后会提交两次
+		return "listCategoryPage";
 	}
 
 	public List<Category> getCategorys() {

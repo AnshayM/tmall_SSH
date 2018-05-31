@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
 		return result.intValue();
 	}
 
-	/* 获取Category的查询结果集 */
+	/* 根据页数获取Category的查询结果集 */
 	@Override
 	public List<Category> listByPage(Page page) {
 		DetachedCriteria dc = DetachedCriteria.forClass(Category.class);

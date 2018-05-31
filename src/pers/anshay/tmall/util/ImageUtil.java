@@ -25,7 +25,7 @@ public class ImageUtil {
 	 * 1:确保图片文件的二进制格式是jpg。 2:仅仅通过ImageIO.write(img, "jpg",
 	 * file);不足以保证转换出来的jpg文件显示正常。这段转换代码，可以确保转换后jpg的图片显示正常，而不会出现暗红色( 有一定几率出现)。
 	 */
-	public static BufferedImage change2ipg(File f) {
+	public static BufferedImage change2jpg(File f) {
 		try {
 			java.awt.Image i = Toolkit.getDefaultToolkit().createImage(f.getAbsolutePath());
 			PixelGrabber pg = new PixelGrabber(i, 0, 0, -1, -1, true);
