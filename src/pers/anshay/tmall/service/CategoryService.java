@@ -40,4 +40,6 @@ public interface CategoryService {
 	 * 获取指定的分类实体，用于进行修改
 	 */
 	public Category get(Class clazz, int id);
+
+	public void update(Category category);
 }

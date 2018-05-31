@@ -69,4 +69,10 @@ public class CategoryServiceImpl implements CategoryService {
 		return (Category) dao.get(clazz, id);
 	}
 
+	/* 更新 */
+	@Override
+	public void update(Category category) {
+		dao.update(category);
+	}
+
 }

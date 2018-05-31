@@ -103,6 +103,26 @@ public class CategoryAction {
 		return "editCategory";
 	}
 
+	/**
+	 * 更新
+	 */
+	@Action("admin_category_update")
+	public String update() {
+		categoryService.update(category);
+		if (null != img) {
+			File imageFolder = new File(ServletActionContext.getServletContext().getRealPath("img/category"));
+			File file = new File(imageFolder, category.getId() + ".jpg");
+			try {
+				FileUtils.copyFile(img, file);
+				BufferedImage img = ImageUtil.change2jpg(file);
+				ImageIO.write(img, "jpg", file);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return "listCategoryPage";
+	}
+
 	public List<Category> getCategorys() {
 		return categorys;
 	}
