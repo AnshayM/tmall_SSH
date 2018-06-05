@@ -11,7 +11,9 @@ import pers.anshay.tmall.util.Page;
  */
 public interface BaseService {
 	/**
-	 * 为什么需要返回一个Integer而不是void
+	 * 使用委派模式时，ServiceDelegateDAO提供的方法，其返回类型是Serializable(自增长id)
+	 * ，所以按照方法重写原则，作为其子类BaseServiceImpl重写的save方法，其返回类型只能是Serializable 或者Serializable
+	 * 的子类，所以这里选择的是Integer
 	 */
 	public Integer save(Object object);
 
