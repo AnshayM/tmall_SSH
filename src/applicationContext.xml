@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Spring配置文件applicationContext.xml，在本文件中做了如下工作: -->
 <!-- 1. 启动注解配置 -->
-<!-- 2. 扫描com.how2java包下的类 -->
+<!-- 2. 扫描pers.anshay包下的类 -->
 <!-- 3. 配置注解驱动事务管理 -->
 <!-- 4. 管理Hibernate的SessionFactory -->
 <beans xmlns="http://www.springframework.org/schema/beans"
