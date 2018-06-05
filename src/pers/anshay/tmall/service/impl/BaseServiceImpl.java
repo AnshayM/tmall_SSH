@@ -13,7 +13,7 @@ import pers.anshay.tmall.util.Page;
 /**
  * @author Anshay
  * @date 2018年6月5日
- * @explain
+ * @explain 基础接口实现类，具体业务实现类只需要继承这个接口就可以
  */
 public class BaseServiceImpl implements BaseService {
 	@Autowired
@@ -29,7 +29,11 @@ public class BaseServiceImpl implements BaseService {
 	}
 
 	/**
-	 * 为了获取指定的class
+	 * 在构造方法中，借助异常处理和反射得到Category.class或者Product.class。
+	 * 即要做到哪个类继承了BaseServiceImpl，clazz 就对应哪个类对象。 比如是
+	 * CategoryServiceImpl继承了BaseServiceImpl,那么这个clazz的值就是Category.class 比如是
+	 * ProductServiceImpl继承了BaseServiceImpl,那么这个clazz的值就是Product.class
+	 * 
 	 */
 	public BaseServiceImpl() {
 		try {
