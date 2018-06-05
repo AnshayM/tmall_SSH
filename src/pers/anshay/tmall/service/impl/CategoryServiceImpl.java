@@ -19,9 +19,9 @@ import pers.anshay.tmall.util.Page;
  *          在list()方法中，通过dao获取所有的分类对象。
  */
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl extends BaseServiceImpl implements CategoryService {
 
-	@Autowired
+	/*@Autowired
 	DAOImpl dao;
 
 	@Override
@@ -31,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
 		return dao.findByCriteria(dc);
 	}
 
-	/* 查询数据库获取分类总数 */
+	 查询数据库获取分类总数 
 	@Override
 	public int total() {
 		String hql = "select count(*) from Category";
@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
 		return result.intValue();
 	}
 
-	/* 根据页数获取Category的查询结果集 */
+	 根据页数获取Category的查询结果集 
 	@Override
 	public List<Category> listByPage(Page page) {
 		DetachedCriteria dc = DetachedCriteria.forClass(Category.class);
@@ -51,28 +51,28 @@ public class CategoryServiceImpl implements CategoryService {
 		return dao.findByCriteria(dc, page.getStart(), page.getCount());
 	}
 
-	/* 添加新分类 */
+	 添加新分类 
 	@Override
 	public void save(Category category) {
 		dao.save(category);
 	}
 
-	/* 删除分类 */
+	 删除分类 
 	@Override
 	public void delete(Category category) {
 		dao.delete(category);
 	}
 
-	/* 根据id获取指定的分类实体，用于编辑修改 */
+	 根据id获取指定的分类实体，用于编辑修改 
 	@Override
 	public Category get(Class clazz, int id) {
 		return (Category) dao.get(clazz, id);
 	}
 
-	/* 更新 */
+	 更新 
 	@Override
 	public void update(Category category) {
 		dao.update(category);
-	}
+	}*/
 
 }

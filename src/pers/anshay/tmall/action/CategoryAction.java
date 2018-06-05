@@ -99,7 +99,8 @@ public class CategoryAction {
 	@Action("admin_category_edit")
 	public String edit() {
 		int id = category.getId();
-		category = categoryService.get(Category.class, id);
+		// category = categoryService.get(Category.class, id);
+		category = (Category) categoryService.get(id);
 		return "editCategory";
 	}
 

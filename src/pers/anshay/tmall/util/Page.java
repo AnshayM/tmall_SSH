@@ -5,11 +5,7 @@ package pers.anshay.tmall.util;
  * @date 2018年5月30日
  * @explain 为分类提供必要信息
  */
-/**
- * @author Anshay
- * @date 2018年5月30日
- * @explain
- */
+
 public class Page {
 
 	int start; // 开始页数
@@ -17,7 +13,7 @@ public class Page {
 	int total; // 总个数
 	String param; // 参数
 
-	private static final int DEFAULT_COUNT = 5; // 默认每页显示5条
+	private static final int DEFAULT_COUNT = 5; // 默认每页显示条数
 
 	public int getStart() {
 		return start;
@@ -45,6 +41,9 @@ public class Page {
 		this.count = count;
 	}
 
+	/**
+	 * 判断该页是否是第一页
+	 */
 	public boolean isHasPreviouse() {
 		if (start == 0)
 			return false;
@@ -52,12 +51,18 @@ public class Page {
 
 	}
 
+	/**
+	 * 判断该页是否是最后一页
+	 */
 	public boolean isHasNext() {
 		if (start == getLast())
 			return false;
 		return true;
 	}
 
+	/**
+	 * 获取总页数
+	 */
 	public int getTotalPage() {
 		int totalPage;
 		// 假设总数是50，是能够被5整除的，那么就有10页
@@ -73,6 +78,9 @@ public class Page {
 
 	}
 
+	/**
+	 * 获取最后一页开始的id
+	 */
 	public int getLast() {
 		int last;
 		// 假设总数是50，是能够被5整除的，那么最后一页的开始就是45
