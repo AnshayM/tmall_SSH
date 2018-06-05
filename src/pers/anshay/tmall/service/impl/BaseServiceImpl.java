@@ -4,20 +4,19 @@ import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import pers.anshay.tmall.dao.impl.DAOImpl;
 import pers.anshay.tmall.service.BaseService;
 import pers.anshay.tmall.util.Page;
 
 /**
  * @author Anshay
  * @date 2018年6月5日
- * @explain 基础接口实现类，具体业务实现类只需要继承这个接口就可以
+ * @explain 基础接口实现类，具体业务实现类只需要继承这个接口就可以。因为使用了微拍模式，即可去掉dao的存在
  */
-public class BaseServiceImpl implements BaseService {
-	@Autowired
-	DAOImpl dao;
+public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
+	/*
+	 * @Autowired DAOImpl dao;
+	 */
 	protected Class clazz;
 
 	public static void main(String[] args) {
@@ -58,13 +57,13 @@ public class BaseServiceImpl implements BaseService {
 	public List list() {
 		DetachedCriteria dc = DetachedCriteria.forClass(clazz);
 		dc.addOrder(Order.desc("id"));
-		return dao.findByCriteria(dc);
+		return findByCriteria(dc);
 	}
 
 	@Override
 	public int total() {
 		String hql = "select count(*) from " + clazz.getName();
-		List<Long> l = dao.find(hql);
+		List<Long> l = find(hql);
 		if (l.isEmpty()) {
 			return 0;
 		}
@@ -76,32 +75,29 @@ public class BaseServiceImpl implements BaseService {
 	public List<Object> listByPage(Page page) {
 		DetachedCriteria dc = DetachedCriteria.forClass(clazz);
 		dc.addOrder(Order.desc("id"));
-		return dao.findByCriteria(dc, page.getStart(), page.getCount());
+		return findByCriteria(dc, page.getStart(), page.getCount());
 	}
 
 	@Override
 	public Integer save(Object object) {
-		return (Integer) dao.save(object);
-	}
-
-	@Override
-	public void delete(Object object) {
-		dao.delete(object);
+		return (Integer) save(object);
 	}
 
 	@Override
 	public Object get(Class clazz, int id) {
-		return dao.get(clazz, id);
-	}
-
-	@Override
-	public void update(Object object) {
-		dao.update(object);
+		return get(clazz, id);
 	}
 
 	@Override
 	public Object get(int id) {
-		return dao.get(clazz, id);
+		return get(clazz, id);
 	}
+
+	// 因为继承了ServiceDelegateDAO,所以就继承了update和delete方法
+	/*
+	 * @Override public void update(Object object) { dao.update(object); }
+	 * 
+	 * @Override public void delete(Object object) { dao.delete(object); }
+	 */
 
 }
