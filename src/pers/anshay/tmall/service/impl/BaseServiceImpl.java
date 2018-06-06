@@ -1,9 +1,11 @@
 package pers.anshay.tmall.service.impl;
 
 import java.util.List;
-
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Service;
 
 import pers.anshay.tmall.service.BaseService;
 import pers.anshay.tmall.util.Page;
@@ -13,6 +15,7 @@ import pers.anshay.tmall.util.Page;
  * @date 2018年6月5日
  * @explain 基础接口实现类，具体业务实现类只需要继承这个接口就可以。因为使用了微拍模式，即可去掉dao的存在
  */
+@Service
 public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
 	/*
 	 * @Autowired DAOImpl dao;
@@ -80,12 +83,12 @@ public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
 
 	@Override
 	public Integer save(Object object) {
-		return (Integer) save(object);
+		return (Integer) super.save(object);
 	}
 
 	@Override
 	public Object get(Class clazz, int id) {
-		return get(clazz, id);
+		return super.get(clazz, id);
 	}
 
 	@Override
@@ -93,6 +96,33 @@ public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
 		return get(clazz, id);
 	}
 
+//	@Override
+//	public List listByParent(Object parent) {
+//		String parentName = parent.getClass().getSimpleName();
+//		String parentNameWithFirstLetterLower = StringUtils.uncapitalize(parentName);
+//		DetachedCriteria dc = DetachedCriteria.forClass(clazz);
+//		dc.add(Restrictions.eq(parentNameWithFirstLetterLower, parent));
+//		dc.addOrder(Order.desc("id"));
+//		return findByCriteria(dc);
+//	}
+//
+//	@Override
+//	public List list(Object... pairParms) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public List list(Page page, Object parent) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public int total(Object parentObject) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
 	// 因为继承了ServiceDelegateDAO,所以就继承了update和delete方法
 	/*
 	 * @Override public void update(Object object) { dao.update(object); }

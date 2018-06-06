@@ -30,4 +30,5 @@ public interface BaseService {
 	public List listByPage(Page page);
 
 	public int total();
+	
 }
