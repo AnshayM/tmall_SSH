@@ -2,7 +2,6 @@ package pers.anshay.tmall.action;
 
 import org.apache.struts2.convention.annotation.Action;
 
-import pers.anshay.tmall.service.PropertyService;
 import pers.anshay.tmall.util.Page;
 
 /**

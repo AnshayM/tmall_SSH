@@ -1,6 +1,5 @@
 package pers.anshay.tmall.service.impl;
 
-import org.springframework.scripting.bsh.BshScriptUtils.BshExecutionException;
 import org.springframework.stereotype.Service;
 
 import pers.anshay.tmall.service.PropertyService;

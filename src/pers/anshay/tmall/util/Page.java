@@ -75,7 +75,6 @@ public class Page {
 		if (0 == totalPage)
 			totalPage = 1;
 		return totalPage;
-
 	}
 
 	/**
