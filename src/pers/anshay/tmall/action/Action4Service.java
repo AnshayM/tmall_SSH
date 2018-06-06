@@ -6,6 +6,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import pers.anshay.tmall.service.CategoryService;
+import pers.anshay.tmall.service.PropertyService;
 
 /**
  * @author Anshay
@@ -15,6 +16,8 @@ import pers.anshay.tmall.service.CategoryService;
 public class Action4Service extends Action4Pojo {
 	@Autowired
 	CategoryService categoryService;
+	@Autowired
+	PropertyService propertyService;
 
 	/**
 	 * transient to persistent 瞬时对象转换为持久对象
@@ -26,7 +29,7 @@ public class Action4Service extends Action4Pojo {
 			Object persistentBean = categoryService.get(clazz, id);
 
 			String beanName = clazz.getSimpleName();
-			Method setMethod = getClass().getMethod("set" + WordUtils.capitalize(beanName),clazz);
+			Method setMethod = getClass().getMethod("set" + WordUtils.capitalize(beanName), clazz);
 			setMethod.invoke(this, persistentBean);
 		} catch (Exception e) {
 			e.printStackTrace();

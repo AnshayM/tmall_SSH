@@ -13,13 +13,11 @@ import pers.anshay.tmall.util.Page;
 /**
  * @author Anshay
  * @date 2018年6月5日
- * @explain 基础接口实现类，具体业务实现类只需要继承这个接口就可以。因为使用了微拍模式，即可去掉dao的存在
+ * @explain 基础接口实现类，具体业务实现类只需要继承这个接口就可以。因为使用了委派模式，即可隐藏dao的存在
  */
 @Service
 public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
-	/*
-	 * @Autowired DAOImpl dao;
-	 */
+
 	protected Class clazz;
 
 	public static void main(String[] args) {
@@ -96,38 +94,44 @@ public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
 		return get(clazz, id);
 	}
 
-//	@Override
-//	public List listByParent(Object parent) {
-//		String parentName = parent.getClass().getSimpleName();
-//		String parentNameWithFirstLetterLower = StringUtils.uncapitalize(parentName);
-//		DetachedCriteria dc = DetachedCriteria.forClass(clazz);
-//		dc.add(Restrictions.eq(parentNameWithFirstLetterLower, parent));
-//		dc.addOrder(Order.desc("id"));
-//		return findByCriteria(dc);
-//	}
-//
-//	@Override
-//	public List list(Object... pairParms) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public List list(Page page, Object parent) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public int total(Object parentObject) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-	// 因为继承了ServiceDelegateDAO,所以就继承了update和delete方法
-	/*
-	 * @Override public void update(Object object) { dao.update(object); }
-	 * 
-	 * @Override public void delete(Object object) { dao.delete(object); }
-	 */
+	@Override
+	public List listByParent(Object parent) {
+		// 借助反射获取父类的类型名称
+		String parentName = parent.getClass().getSimpleName();
+		// 把首字母变小写
+		String parentNameWithFirstLetterLower = StringUtils.uncapitalize(parentName);
+		DetachedCriteria dc = DetachedCriteria.forClass(clazz);
+		dc.add(Restrictions.eq(parentNameWithFirstLetterLower, parent));
+		dc.addOrder(Order.desc("id"));
+		return findByCriteria(dc);
+	}
+
+	// 为什么需要首字母小写
+	@Override
+	public List list(Page page, Object parent) {
+		String parentName = parent.getClass().getSimpleName();
+		String parentNameWithFirstLetterLower = StringUtils.uncapitalize(parentName);
+		DetachedCriteria dc = DetachedCriteria.forClass(clazz);
+		dc.add(Restrictions.eq(parentNameWithFirstLetterLower, parent));
+		dc.addOrder(Order.desc("id"));
+		// 基本与方法listByParent一致，只在返回结果上有不同
+		return findByCriteria(dc, page.getStart(), page.getCount());
+	}
+
+	@Override
+	public int total(Object parentObject) {
+		String parementName = parentObject.getClass().getSimpleName();
+		String parentNameWithFirstLetterLower = StringUtils.uncapitalize(parementName);
+
+		String sqlFormat = "select count(*) from %s bean where bean.%s = ?";
+		String hql = String.format(sqlFormat, clazz.getName(), parentNameWithFirstLetterLower);
+
+		List<Long> l = this.find(hql, parentObject);
+		if (l.isEmpty()) {
+			return 0;
+		}
+		Long result = l.get(0);
+		return result.intValue();
+	}
 
 }

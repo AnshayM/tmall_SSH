@@ -47,7 +47,6 @@ public class CategoryAction extends Action4Result {
 		File file = new File(imageFolder, category.getId() + ".jpg");
 		try {
 			FileUtils.copyFile(img, file);
-			// 这里出了问题，file可以找到图片，但是转化就不行了。
 			BufferedImage img = ImageUtil.change2jpg(file);
 			ImageIO.write(img, "jpg", file);
 		} catch (IOException e) {

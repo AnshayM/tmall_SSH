@@ -15,20 +15,58 @@ public interface BaseService {
 	 * ，所以按照方法重写原则，作为其子类BaseServiceImpl重写的save方法，其返回类型只能是Serializable 或者Serializable
 	 * 的子类，所以这里选择的是Integer
 	 */
+	/**
+	 * 新增
+	 */
 	public Integer save(Object object);
 
+	/**
+	 * 更新
+	 */
 	public void update(Object object);
 
+	/**
+	 * 删除
+	 */
 	public void delete(Object object);
 
+	/**
+	 * 根据类和id获取entity
+	 */
 	public Object get(Class clazz, int id);
 
+	/**
+	 * 根据id获取entity
+	 */
 	public Object get(int id);
 
+	/**
+	 * 查询集合
+	 */
 	public List list();
 
+	/**
+	 * 分页查询
+	 */
 	public List listByPage(Page page);
 
+	/**
+	 * 获取总条数
+	 */
 	public int total();
-	
+
+	/**
+	 * 根据父类查询所有子类对象
+	 */
+	public List listByParent(Object parent);
+
+	/**
+	 * 以分页的方式根据父类查询子类对象集合
+	 */
+	public List list(Page page, Object parent);
+
+	/**
+	 * 根据父类查询子类对象数量
+	 */
+	public int total(Object parentObject);
 }
