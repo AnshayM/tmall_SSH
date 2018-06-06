@@ -33,12 +33,12 @@ public class ImageUtil {
 			int width = pg.getWidth();
 			int height = pg.getHeight();
 			final int[] RGB_MASKS = { 0xFF0000, 0xFF00, 0xFF };
-			final ColorModel RGB_OPAQUE = new DirectColorModel(32, RGB_MASKS[0], RGB_MASKS[1], RGB_MASKS[0]);
+			final ColorModel RGB_OPAQUE = new DirectColorModel(32, RGB_MASKS[0], RGB_MASKS[1], RGB_MASKS[2]);
 			DataBuffer buffer = new DataBufferInt((int[]) pg.getPixels(), pg.getWidth() * pg.getHeight());
 			WritableRaster raster = Raster.createPackedRaster(buffer, width, height, width, RGB_MASKS, null);
 			BufferedImage img = new BufferedImage(RGB_OPAQUE, raster, false, null);
 			return img;
-		} catch (Exception e) {
+		} catch (InterruptedException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			return null;
