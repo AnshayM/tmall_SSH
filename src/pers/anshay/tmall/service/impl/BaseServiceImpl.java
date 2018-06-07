@@ -107,10 +107,10 @@ public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
 		return findByCriteria(dc);
 	}
 
-	// 为什么需要首字母小写
 	@Override
 	public List list(Page page, Object parent) {
 		String parentName = parent.getClass().getSimpleName();
+		// 数据库同名表首字母是小写的，所以要保持一致
 		String parentNameWithFirstLetterLower = StringUtils.uncapitalize(parentName);
 		DetachedCriteria dc = DetachedCriteria.forClass(clazz);
 		dc.add(Restrictions.eq(parentNameWithFirstLetterLower, parent));
@@ -122,6 +122,7 @@ public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
 	@Override
 	public int total(Object parentObject) {
 		String parementName = parentObject.getClass().getSimpleName();
+		// 数据库同名表首字母是小写的，所以要保持一致
 		String parentNameWithFirstLetterLower = StringUtils.uncapitalize(parementName);
 
 		String sqlFormat = "select count(*) from %s bean where bean.%s = ?";
@@ -131,6 +132,7 @@ public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
 		if (l.isEmpty()) {
 			return 0;
 		}
+		//第一个数据是结果长度
 		Long result = l.get(0);
 		return result.intValue();
 	}
