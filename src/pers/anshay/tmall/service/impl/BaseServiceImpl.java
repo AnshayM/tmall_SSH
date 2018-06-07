@@ -40,6 +40,7 @@ public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
 			throw new Exception();
 		} catch (Exception e) {
 			StackTraceElement stes[] = e.getStackTrace();
+			// stes[0]是自己，setes[1]是这一条继承线上第一个继承这个类的子类
 			String serviceImpleClassName = stes[1].getClassName();
 			try {
 				Class serviceImplClazz = Class.forName(serviceImpleClassName);
