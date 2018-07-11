@@ -23,6 +23,12 @@ public class ProductAction extends Action4Result {
 		page.setTotal(total);
 		page.setParam("&category.id=" + category.getId());
 		products = productService.list(page, category);
+		
+		//设置首图
+		for (Product product : products) {
+			productImageService.setFirstProductImage(product);
+		}
+
 		t2p(category);
 		return "listProduct";
 	}

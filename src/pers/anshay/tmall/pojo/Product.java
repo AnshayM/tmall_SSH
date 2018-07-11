@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author Anshay
@@ -35,6 +36,9 @@ public class Product {
 	private float promotePrice;
 	private int stock;
 	private Date createDate;
+
+	@Transient // 即表示这个字段并不会被保存到数据库中，是一个瞬时字段
+	private ProductImage firstProductImage;
 
 	public int getId() {
 		return id;
@@ -98,6 +102,14 @@ public class Product {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public ProductImage getFirstProductImage() {
+		return firstProductImage;
+	}
+
+	public void setFirstProductImage(ProductImage firstProductImage) {
+		this.firstProductImage = firstProductImage;
 	}
 
 }
