@@ -69,4 +69,9 @@ public interface BaseService {
 	 * 根据父类查询子类对象数量
 	 */
 	public int total(Object parentObject);
+
+	/**
+	 * 多参数查询
+	 */
+	public List list(Object... pairParms);
 }

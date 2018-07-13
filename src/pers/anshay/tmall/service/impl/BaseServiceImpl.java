@@ -1,6 +1,9 @@
 package pers.anshay.tmall.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -132,9 +135,34 @@ public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
 		if (l.isEmpty()) {
 			return 0;
 		}
-		//第一个数据是结果长度
+		// 第一个数据是结果长度
 		Long result = l.get(0);
 		return result.intValue();
+	}
+
+	/*
+	 * 多条件查询
+	 */
+	@Override
+	public List list(Object... pairParms) {
+		HashMap<String, Object> m = new HashMap<>();
+		for (int i = 0; i < pairParms.length; i = i + 2) {
+			m.put(pairParms[i].toString(), pairParms[i + 1]);
+		}
+
+		DetachedCriteria dc = DetachedCriteria.forClass(clazz);
+
+		Set<String> ks = m.keySet();
+
+		for (String key : ks) {
+			if (null == m.get(key)) {
+				dc.add(Restrictions.isNull(key));
+			} else {
+				dc.add(Restrictions.eq(key, m.get(key)));
+			}
+		}
+		dc.addOrder(Order.desc("id"));
+		return this.findByCriteria(dc);
 	}
 
 }
