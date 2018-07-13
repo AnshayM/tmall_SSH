@@ -9,6 +9,7 @@ import pers.anshay.tmall.service.CategoryService;
 import pers.anshay.tmall.service.ProductImageService;
 import pers.anshay.tmall.service.ProductService;
 import pers.anshay.tmall.service.PropertyService;
+import pers.anshay.tmall.service.PropertyValueService;
 
 /**
  * @author Anshay
@@ -24,6 +25,8 @@ public class Action4Service extends Action4Pojo {
 	ProductService productService;
 	@Autowired
 	ProductImageService productImageService;
+	@Autowired
+	PropertyValueService propertyValueService;
 
 	/**
 	 * transient to persistent 瞬时对象转换为持久对象

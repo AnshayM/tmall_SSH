@@ -6,6 +6,7 @@ import pers.anshay.tmall.pojo.Category;
 import pers.anshay.tmall.pojo.Product;
 import pers.anshay.tmall.pojo.ProductImage;
 import pers.anshay.tmall.pojo.Property;
+import pers.anshay.tmall.pojo.PropertyValue;
 
 /**
  * @author Anshay
@@ -17,12 +18,14 @@ public class Action4Pojo extends Action4Pagination {
 	protected Property property;
 	protected Product product;
 	protected ProductImage productImage;
+	protected PropertyValue propertyValue;
 
 	protected List<Category> categorys;
 	protected List<Property> propertys;
 	protected List<Product> products;
 	protected List<ProductImage> productSingleImages;
 	protected List<ProductImage> productDetailImages;
+	protected List<PropertyValue> propertyValues;
 
 	public Category getCategory() {
 		return category;
@@ -94,6 +97,20 @@ public class Action4Pojo extends Action4Pagination {
 
 	public void setProductDetailImages(List<ProductImage> productDetailImages) {
 		this.productDetailImages = productDetailImages;
+	}
+
+	/**
+	 * @return the propertyValues
+	 */
+	public List<PropertyValue> getPropertyValues() {
+		return propertyValues;
+	}
+
+	/**
+	 * @param propertyValues the propertyValues to set
+	 */
+	public void setPropertyValues(List<PropertyValue> propertyValues) {
+		this.propertyValues = propertyValues;
 	}
 
 }
