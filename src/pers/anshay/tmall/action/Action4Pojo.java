@@ -7,6 +7,7 @@ import pers.anshay.tmall.pojo.Product;
 import pers.anshay.tmall.pojo.ProductImage;
 import pers.anshay.tmall.pojo.Property;
 import pers.anshay.tmall.pojo.PropertyValue;
+import pers.anshay.tmall.pojo.User;
 
 /**
  * @author Anshay
@@ -19,6 +20,7 @@ public class Action4Pojo extends Action4Pagination {
 	protected Product product;
 	protected ProductImage productImage;
 	protected PropertyValue propertyValue;
+	protected User user;
 
 	protected List<Category> categorys;
 	protected List<Property> propertys;
@@ -26,6 +28,7 @@ public class Action4Pojo extends Action4Pagination {
 	protected List<ProductImage> productSingleImages;
 	protected List<ProductImage> productDetailImages;
 	protected List<PropertyValue> propertyValues;
+	protected List<User> users;
 
 	public Category getCategory() {
 		return category;
@@ -111,6 +114,48 @@ public class Action4Pojo extends Action4Pagination {
 	 */
 	public void setPropertyValues(List<PropertyValue> propertyValues) {
 		this.propertyValues = propertyValues;
+	}
+
+	/**
+	 * @return the propertyValue
+	 */
+	public PropertyValue getPropertyValue() {
+		return propertyValue;
+	}
+
+	/**
+	 * @param propertyValue the propertyValue to set
+	 */
+	public void setPropertyValue(PropertyValue propertyValue) {
+		this.propertyValue = propertyValue;
+	}
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	/**
+	 * @return the users
+	 */
+	public List<User> getUsers() {
+		return users;
+	}
+
+	/**
+	 * @param users the users to set
+	 */
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 }
