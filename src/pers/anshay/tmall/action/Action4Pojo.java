@@ -3,6 +3,7 @@ package pers.anshay.tmall.action;
 import java.util.List;
 
 import pers.anshay.tmall.pojo.Category;
+import pers.anshay.tmall.pojo.Order;
 import pers.anshay.tmall.pojo.Product;
 import pers.anshay.tmall.pojo.ProductImage;
 import pers.anshay.tmall.pojo.Property;
@@ -21,6 +22,7 @@ public class Action4Pojo extends Action4Pagination {
 	protected ProductImage productImage;
 	protected PropertyValue propertyValue;
 	protected User user;
+	protected Order order;
 
 	protected List<Category> categorys;
 	protected List<Property> propertys;
@@ -29,6 +31,7 @@ public class Action4Pojo extends Action4Pagination {
 	protected List<ProductImage> productDetailImages;
 	protected List<PropertyValue> propertyValues;
 	protected List<User> users;
+	protected List<Order> orders;
 
 	public Category getCategory() {
 		return category;
@@ -110,7 +113,8 @@ public class Action4Pojo extends Action4Pagination {
 	}
 
 	/**
-	 * @param propertyValues the propertyValues to set
+	 * @param propertyValues
+	 *            the propertyValues to set
 	 */
 	public void setPropertyValues(List<PropertyValue> propertyValues) {
 		this.propertyValues = propertyValues;
@@ -124,7 +128,8 @@ public class Action4Pojo extends Action4Pagination {
 	}
 
 	/**
-	 * @param propertyValue the propertyValue to set
+	 * @param propertyValue
+	 *            the propertyValue to set
 	 */
 	public void setPropertyValue(PropertyValue propertyValue) {
 		this.propertyValue = propertyValue;
@@ -138,7 +143,8 @@ public class Action4Pojo extends Action4Pagination {
 	}
 
 	/**
-	 * @param user the user to set
+	 * @param user
+	 *            the user to set
 	 */
 	public void setUser(User user) {
 		this.user = user;
@@ -152,10 +158,41 @@ public class Action4Pojo extends Action4Pagination {
 	}
 
 	/**
-	 * @param users the users to set
+	 * @param users
+	 *            the users to set
 	 */
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+
+	/**
+	 * @return the order
+	 */
+	public Order getOrder() {
+		return order;
+	}
+
+	/**
+	 * @param order
+	 *            the order to set
+	 */
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+	/**
+	 * @return the orders
+	 */
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	/**
+	 * @param orders
+	 *            the orders to set
+	 */
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 }

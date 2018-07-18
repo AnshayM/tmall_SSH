@@ -8,7 +8,7 @@ import pers.anshay.tmall.pojo.ProductImage;
 /**
  * @author Anshay
  * @date 2018年7月10日
- * @explain
+ * @explain 产品图片管理
  */
 public interface ProductImageService extends BaseService {
 
