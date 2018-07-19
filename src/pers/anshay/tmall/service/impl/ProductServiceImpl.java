@@ -1,16 +1,63 @@
 package pers.anshay.tmall.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pers.anshay.tmall.pojo.Category;
+import pers.anshay.tmall.pojo.Product;
+import pers.anshay.tmall.service.ProductImageService;
 import pers.anshay.tmall.service.ProductService;
 
 /**
  * @author Anshay
  * @date 2018年6月7日
- * @explain 
+ * @explain
  */
 
 @Service
-public class ProductServiceImpl extends BaseServiceImpl implements ProductService{
+public class ProductServiceImpl extends BaseServiceImpl implements ProductService {
+
+	@Autowired
+	ProductImageService productImageService;
+
+	@Override
+	public void fill(Category category) {
+		// 获取该分类下的产品集合
+		List<Product> products = listByParent(category);
+		// 为每个产品配置缩略图
+		for (Product product : products) {
+			productImageService.setFirstProductImage(product);
+		}
+		// 将配置了缩略图的产品集合更新到分类下
+		category.setProducts(products);
+	}
+
+	@Override
+	public void fill(List<Category> categorys) {
+		for (Category category : categorys) {
+			fill(category);
+		}
+	}
+
+	@Override
+	public void fillByRow(List<Category> categorys) {
+		// 一个分类对应多行产品，一行产品对应多个产品记录
+		// 设置推荐数量为8个
+		int productNumberEachRow = 8;
+		for (Category category : categorys) {
+			List<Product> products = category.getProducts();
+			List<List<Product>> productsByRow = new ArrayList<>();
+			for (int i = 0; i < products.size(); i += productNumberEachRow) {
+				int size = i + productNumberEachRow;
+				size = size > products.size() ? products.size() : size;
+				List<Product> productdOfEachRow = products.subList(i, size);
+				productsByRow.add(productdOfEachRow);
+			}
+			category.setProductsByRow(productsByRow);
+		}
+	}
 
 }
