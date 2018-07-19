@@ -12,7 +12,7 @@ import javax.persistence.Table;
 /**
  * @author Anshay
  * @date 2018年6月6日
- * @explain 商品属性类
+ * @explain 产品属性类
  */
 @Entity
 @Table(name = "property")

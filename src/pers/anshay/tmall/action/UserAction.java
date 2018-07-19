@@ -7,7 +7,7 @@ import pers.anshay.tmall.util.Page;
 /**
  * @author Anshay
  * @date 2018年7月17日
- * @explain 用户管理
+ * @explain 用户管理的控制器
  */
 public class UserAction extends Action4Result {
 	// 分页显示所有用户列表

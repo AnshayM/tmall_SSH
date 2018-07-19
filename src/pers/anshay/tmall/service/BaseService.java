@@ -7,7 +7,7 @@ import pers.anshay.tmall.util.Page;
 /**
  * @author Anshay
  * @date 2018年6月4日
- * @explain 由于可以预见的在后续做产品管理，用户管理，订单管理等等，会有很多近似的CURD的接口，那么我们就做一个BaseService，里面就提供这些CRUD和分页查询的方法
+ * @explain 基础服务类，提供CRUD和分页查询的方法
  */
 public interface BaseService {
 	/**

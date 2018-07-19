@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-
+    
 /**
  * @author Anshay
  * @date 2018年5月29日

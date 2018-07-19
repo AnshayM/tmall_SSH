@@ -13,7 +13,7 @@ import pers.anshay.tmall.pojo.User;
 /**
  * @author Anshay
  * @date 2018年6月5日
- * @explain 对象和集合
+ * @explain 对象和集合，继承分页管理类
  */
 public class Action4Pojo extends Action4Pagination {
 	protected Category category;

@@ -7,7 +7,7 @@ import pers.anshay.tmall.service.PropertyValueService;
 /**
  * @author Anshay
  * @date 2018年7月13日
- * @explain 产品属性值Action
+ * @explain 产品属性值的控制器
  */
 public class PropertyValueAction extends Action4Result {
 	

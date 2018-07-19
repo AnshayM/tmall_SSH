@@ -3,7 +3,7 @@ package pers.anshay.tmall.service;
 /**
  * @author Anshay
  * @date 2018年7月17日
- * @explain 订单状态常量
+ * @explain 订单状态常量，管理工作放在OrderItemService中
  */
 public interface OrderService extends BaseService {
 	public static final String waitPay = "waitPay";

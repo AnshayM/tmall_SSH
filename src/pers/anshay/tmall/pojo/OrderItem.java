@@ -12,7 +12,7 @@ import javax.persistence.Table;
 /**
  * @author Anshay
  * @date 2018年7月17日
- * @explain 订单实体类
+ * @explain 订单中的产品的实体类
  */
 @Entity
 @Table(name = "orderItem")

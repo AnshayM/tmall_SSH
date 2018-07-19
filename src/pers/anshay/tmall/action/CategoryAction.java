@@ -16,9 +16,7 @@ import pers.anshay.tmall.util.Page;
 /**
  * @author Anshay
  * @date 2018年5月29日
- * @explain CategoryAction 继承Action4Result,
- *          于是就间接地继承了Action4Service，Action4Pojo，Action4Pagination，Action4Upload，于是就通过继承提供了各种相关的功能。
- *          CategoryAction 本身只需要专注于扮演控制器(Controller)本身即可。
+ * @explain  商品分类的控制器
  */
 
 public class CategoryAction extends Action4Result {

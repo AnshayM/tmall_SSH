@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 /**
  * @author Anshay
  * @date 2018年6月7日
- * @explain 产品类
+ * @explain 产品实体类
  */
 @Entity
 @Table(name = "product")

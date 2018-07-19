@@ -16,7 +16,7 @@ import pers.anshay.tmall.util.ImageUtil;
 /**
  * @author Anshay
  * @date 2018年7月10日
- * @explain
+ * @explain 产品图片的控制器
  */
 public class ProductImageAction extends Action4Result {
 

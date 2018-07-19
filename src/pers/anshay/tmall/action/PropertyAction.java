@@ -7,7 +7,7 @@ import pers.anshay.tmall.util.Page;
 /**
  * @author Anshay
  * @date 2018年6月6日
- * @explain 属性的action
+ * @explain 产品属性的控制器
  */
 public class PropertyAction extends Action4Result {
 

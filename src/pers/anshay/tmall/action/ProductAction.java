@@ -10,7 +10,7 @@ import pers.anshay.tmall.util.Page;
 /**
  * @author Anshay
  * @date 2018年6月7日
- * @explain 产品的管理类
+ * @explain 产品的控制器
  */
 public class ProductAction extends Action4Result {
 

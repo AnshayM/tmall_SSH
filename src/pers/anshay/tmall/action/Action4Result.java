@@ -8,7 +8,7 @@ import org.apache.struts2.convention.annotation.Results;
 /**
  * @author Anshay
  * @date 2018年6月5日
- * @explain 专门进行返回页面的定义
+ * @explain 专门进行返回页面的定义，到这里通过继承提供了各种功能
  */
 @Namespace("/")
 @ParentPackage("basicstruts")
