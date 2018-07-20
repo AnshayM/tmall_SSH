@@ -6,5 +6,8 @@ package pers.anshay.tmall.service;
  * @explain 用户管理
  */
 public interface UserService extends BaseService {
-
+	/**
+	 * 用户是否存在
+	 */
+	boolean isExist(String name);
 }
