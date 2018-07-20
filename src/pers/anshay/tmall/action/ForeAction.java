@@ -3,6 +3,9 @@ package pers.anshay.tmall.action;
 import org.apache.struts2.convention.annotation.Action;
 import org.springframework.web.util.HtmlUtils;
 
+import com.opensymphony.xwork2.ActionContext;
+
+import pers.anshay.tmall.pojo.User;
 import pers.anshay.tmall.service.CategoryService;
 
 /**
@@ -35,4 +38,25 @@ public class ForeAction extends Action4Result {
 		return "registerSuccessPage";
 	}
 
+	/* 这个user怎么来的：：： */
+	@Action("forelogin")
+	public String login() {
+		// 获取前台传过来的用户名（这一步有什么作用？？）
+		user.setName(HtmlUtils.htmlEscape(user.getName()));
+		// 根据前台传过来的用户名和密码去查询用户，返回结果赋给user_session
+		User user_session = userService.get(user.getName(), user.getPassword());
+		if (null == user_session) {
+			msg = "账号密码错误";
+			return "login.jsp";
+		}
+		ActionContext.getContext().getSession().put("user", user_session);
+		return "homePage";
+	}
+
+	@Action("forloginout")
+	public String logout() {
+		// 在session中把当前用户信息去掉即完成登出功能
+		ActionContext.getContext().getSession().remove("user");
+		return "homePafe";
+	}
 }
