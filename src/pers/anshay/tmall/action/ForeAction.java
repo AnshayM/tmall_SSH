@@ -41,6 +41,7 @@ public class ForeAction extends Action4Result {
 	/* 这个user怎么来的：：： */
 	@Action("forelogin")
 	public String login() {
+		user.getName();
 		// 获取前台传过来的用户名（这一步有什么作用？？）
 		user.setName(HtmlUtils.htmlEscape(user.getName()));
 		// 根据前台传过来的用户名和密码去查询用户，返回结果赋给user_session
@@ -53,10 +54,10 @@ public class ForeAction extends Action4Result {
 		return "homePage";
 	}
 
-	@Action("forloginout")
+	@Action("forelogout")
 	public String logout() {
 		// 在session中把当前用户信息去掉即完成登出功能
 		ActionContext.getContext().getSession().remove("user");
-		return "homePafe";
+		return "homePage";
 	}
 }
