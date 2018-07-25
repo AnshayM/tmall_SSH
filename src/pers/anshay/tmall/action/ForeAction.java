@@ -7,6 +7,8 @@ import com.opensymphony.xwork2.ActionContext;
 
 import pers.anshay.tmall.pojo.User;
 import pers.anshay.tmall.service.CategoryService;
+import pers.anshay.tmall.service.ProductImageService;
+import pers.anshay.tmall.service.ReviewService;
 
 /**
  * @author Anshay
@@ -14,8 +16,33 @@ import pers.anshay.tmall.service.CategoryService;
  * @explain 前台访问控制器
  */
 public class ForeAction extends Action4Result {
+	
+	/* bug：msg无法传递到前台 */
 	// 返回前台的信息
 	String msg;
+
+	/**
+	 * 1. 把product 指向持久化对象 2. 设置首张图片 3. 设置单个和详情图片集合 4. 获取本产品的属性值集合 5. 获取本产品的评价集合 6.
+	 * 设置销售数量和评价数量 7. 服务端跳转到 product.jsp
+	 */
+	@Action("foreproduct")
+	public String product() {
+		t2p(product);
+
+		productImageService.setFirstProductImage(product);
+		productSingleImages = productImageService.list("product", product, "type", ProductImageService.type_single);
+		productDetailImages = productImageService.list("product", product, "type", ProductImageService.type_detail);
+		product.setProductSingleImages(productSingleImages);
+		product.setProductDetailImages(productDetailImages);
+
+		propertyValues = propertyValueService.listByParent(product);
+
+		reviews = reviewService.listByParent(product);
+
+		productService.setSaleAndReviewNumber(product);
+
+		return "product.jsp";
+	}
 
 	@Action("forehome")
 	public String home() {
@@ -47,6 +74,7 @@ public class ForeAction extends Action4Result {
 		// 根据前台传过来的用户名和密码去查询用户，返回结果赋给user_session
 		User user_session = userService.get(user.getName(), user.getPassword());
 		if (null == user_session) {
+
 			msg = "账号密码错误";
 			return "login.jsp";
 		}

@@ -1,6 +1,7 @@
 package pers.anshay.tmall.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,6 @@ import javax.persistence.Transient;
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	@Column(name = "id")
 	int id;
 
@@ -39,6 +39,14 @@ public class Product {
 
 	@Transient // 即表示这个字段并不会被保存到数据库中，是一个瞬时字段
 	private ProductImage firstProductImage;
+	@Transient
+	private List<ProductImage> productSingleImages;
+	@Transient
+	private List<ProductImage> productDetailImages;
+	@Transient
+	private int reviewCount;
+	@Transient
+	private int saleCount;
 
 	public int getId() {
 		return id;
@@ -110,6 +118,52 @@ public class Product {
 
 	public void setFirstProductImage(ProductImage firstProductImage) {
 		this.firstProductImage = firstProductImage;
+	}
+
+	public List<ProductImage> getProductSingleImages() {
+		return productSingleImages;
+	}
+
+	public void setProductSingleImages(List<ProductImage> productSingleImages) {
+		this.productSingleImages = productSingleImages;
+	}
+
+	public List<ProductImage> getProductDetailImages() {
+		return productDetailImages;
+	}
+
+	public void setProductDetailImages(List<ProductImage> productDetailImages) {
+		this.productDetailImages = productDetailImages;
+	}
+
+	/**
+	 * @return the reviewCount
+	 */
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+	/**
+	 * @param reviewCount
+	 *            the reviewCount to set
+	 */
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
+	/**
+	 * @return the saleCount
+	 */
+	public int getSaleCount() {
+		return saleCount;
+	}
+
+	/**
+	 * @param saleCount
+	 *            the saleCount to set
+	 */
+	public void setSaleCount(int saleCount) {
+		this.saleCount = saleCount;
 	}
 
 }

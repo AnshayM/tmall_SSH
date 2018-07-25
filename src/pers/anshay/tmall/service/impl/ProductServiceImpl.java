@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import pers.anshay.tmall.pojo.Category;
 import pers.anshay.tmall.pojo.Product;
+import pers.anshay.tmall.service.OrderItemService;
 import pers.anshay.tmall.service.ProductImageService;
 import pers.anshay.tmall.service.ProductService;
+import pers.anshay.tmall.service.ReviewService;
 
 /**
  * @author Anshay
@@ -22,6 +24,10 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 
 	@Autowired
 	ProductImageService productImageService;
+	@Autowired
+	OrderItemService orderItemService;
+	@Autowired
+	ReviewService reviewService;
 
 	@Override
 	public void fill(Category category) {
@@ -60,4 +66,18 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 		}
 	}
 
+	@Override
+	public void setSaleAndReviewNumber(List<Product> products) {
+		for (Product product : products) {
+			setSaleAndReviewNumber(product);
+		}
+	}
+
+	@Override
+	public void setSaleAndReviewNumber(Product product) {
+		int saleCount = orderItemService.total();
+		product.setSaleCount(saleCount);
+		int reviewCount = reviewService.total(product);
+		product.setReviewCount(reviewCount);
+	}
 }

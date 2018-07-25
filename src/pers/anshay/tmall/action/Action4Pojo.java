@@ -8,6 +8,7 @@ import pers.anshay.tmall.pojo.Product;
 import pers.anshay.tmall.pojo.ProductImage;
 import pers.anshay.tmall.pojo.Property;
 import pers.anshay.tmall.pojo.PropertyValue;
+import pers.anshay.tmall.pojo.Review;
 import pers.anshay.tmall.pojo.User;
 
 /**
@@ -23,6 +24,7 @@ public class Action4Pojo extends Action4Pagination {
 	protected PropertyValue propertyValue;
 	protected User user;
 	protected Order order;
+	protected Review review;
 
 	protected List<Category> categorys;
 	protected List<Property> propertys;
@@ -32,6 +34,7 @@ public class Action4Pojo extends Action4Pagination {
 	protected List<PropertyValue> propertyValues;
 	protected List<User> users;
 	protected List<Order> orders;
+	protected List<Review> reviews;
 
 	public Category getCategory() {
 		return category;
@@ -193,6 +196,36 @@ public class Action4Pojo extends Action4Pagination {
 	 */
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
+	}
+
+	/**
+	 * @return the review
+	 */
+	public Review getReview() {
+		return review;
+	}
+
+	/**
+	 * @param review
+	 *            the review to set
+	 */
+	public void setReview(Review review) {
+		this.review = review;
+	}
+
+	/**
+	 * @return the reviews
+	 */
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	/**
+	 * @param reviews
+	 *            the reviews to set
+	 */
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 }

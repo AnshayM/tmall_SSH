@@ -3,6 +3,7 @@ package pers.anshay.tmall.service;
 import java.util.List;
 
 import pers.anshay.tmall.pojo.Category;
+import pers.anshay.tmall.pojo.Product;
 
 /**
  * @author Anshay
@@ -32,5 +33,15 @@ public interface ProductService extends BaseService {
 	 * @param categorys
 	 */
 	public void fillByRow(List<Category> categorys);
+
+	/**
+	 * 设置销售量
+	 */
+	public void setSaleAndReviewNumber(List<Product> products);
+
+	/**
+	 * 设置销售量
+	 */
+	public void setSaleAndReviewNumber(Product product);
 
 }
