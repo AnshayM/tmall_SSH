@@ -99,6 +99,7 @@ $(function(){
 	            {"user.name":name,"user.password":password},
 	            function(result){
 	            	if("success"==result){
+	            		//这里只是重新载入一次，因为后台返回的是success.jsp页面，页面内容只有“success”字符串（不含有任何空格或者回车）
 	            		location.reload();
 	            	}
 	            	else{
