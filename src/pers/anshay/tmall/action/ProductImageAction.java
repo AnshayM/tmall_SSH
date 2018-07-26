@@ -62,7 +62,7 @@ public class ProductImageAction extends Action4Result {
 		if (ProductImageService.type_single.equals(productImage.getType())) {
 			String imageFolder_small = ServletActionContext.getServletContext().getRealPath("img/productSingle_small");
 			String imageFolder_middle = ServletActionContext.getServletContext()
-					.getRealPath("img/productSingel_middle");
+					.getRealPath("img/productSingle_middle");
 
 			File f_small = new File(imageFolder_small, fileName);
 			File f_middle = new File(imageFolder_middle, fileName);

@@ -129,9 +129,9 @@ public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
 
 	@Override
 	public int total(Object parentObject) {
-		String parementName = parentObject.getClass().getSimpleName();
+		String parentName = parentObject.getClass().getSimpleName();
 		// 数据库同名表首字母是小写的，所以要保持一致
-		String parentNameWithFirstLetterLower = StringUtils.uncapitalize(parementName);
+		String parentNameWithFirstLetterLower = StringUtils.uncapitalize(parentName);
 
 		String sqlFormat = "select count(*) from %s bean where bean.%s = ?";
 		String hql = String.format(sqlFormat, clazz.getName(), parentNameWithFirstLetterLower);

@@ -3,6 +3,8 @@ package pers.anshay.tmall.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,15 +32,25 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 	ReviewService reviewService;
 
 	@Override
-	public void fill(Category category) {
-		// 获取该分类下的产品集合
-		List<Product> products = listByParent(category);
-		// 为每个产品配置缩略图
+	public List<Product> search(String keyword, int start, int count) {
+		DetachedCriteria dc = DetachedCriteria.forClass(clazz);
+		dc.add(Restrictions.like("name", "%" + keyword + "%"));
+		return findByCriteria(dc, start, count);
+	}
+
+	@Override
+	public void setSaleAndReviewNumber(Product product) {
+		int saleCount = orderItemService.total(product);
+		product.setSaleCount(saleCount);
+		int reviewCount = reviewService.total(product);
+		product.setReviewCount(reviewCount);
+	}
+
+	@Override
+	public void setSaleAndReviewNumber(List<Product> products) {
 		for (Product product : products) {
-			productImageService.setFirstProductImage(product);
+			setSaleAndReviewNumber(product);
 		}
-		// 将配置了缩略图的产品集合更新到分类下
-		category.setProducts(products);
 	}
 
 	@Override
@@ -47,6 +59,7 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 			fill(category);
 		}
 	}
+
 
 	@Override
 	public void fillByRow(List<Category> categorys) {
@@ -59,25 +72,22 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 			for (int i = 0; i < products.size(); i += productNumberEachRow) {
 				int size = i + productNumberEachRow;
 				size = size > products.size() ? products.size() : size;
-				List<Product> productdOfEachRow = products.subList(i, size);
-				productsByRow.add(productdOfEachRow);
+				List<Product> productsOfEachRow = products.subList(i, size);
+				productsByRow.add(productsOfEachRow);
 			}
 			category.setProductsByRow(productsByRow);
 		}
 	}
 
 	@Override
-	public void setSaleAndReviewNumber(List<Product> products) {
+	public void fill(Category category) {
+		// 获取该分类下的产品集合
+		List<Product> products = listByParent(category);
+		// 为每个产品配置缩略图
 		for (Product product : products) {
-			setSaleAndReviewNumber(product);
+			productImageService.setFirstProductImage(product);
 		}
-	}
-
-	@Override
-	public void setSaleAndReviewNumber(Product product) {
-		int saleCount = orderItemService.total();
-		product.setSaleCount(saleCount);
-		int reviewCount = reviewService.total(product);
-		product.setReviewCount(reviewCount);
+		// 将配置了缩略图的产品集合更新到分类下
+		category.setProducts(products);
 	}
 }

@@ -18,7 +18,7 @@ import pers.anshay.tmall.service.OrderService;
 /**
  * @author Anshay
  * @date 2018年7月17日
- * @explain 订单实体类（可包括多个产品）
+ * @explain 已经生成的订单
  */
 @Entity
 @Table(name = "order_")

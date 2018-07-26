@@ -12,6 +12,7 @@ import java.awt.image.Raster;
 import java.awt.image.RenderedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -53,7 +54,7 @@ public class ImageUtil {
 			Image i = ImageIO.read(srcFile);
 			i = resizeImage(i, width, height);
 			ImageIO.write((RenderedImage) i, "jpg", destFile);
-		} catch (Exception e) {
+		} catch (IOException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
