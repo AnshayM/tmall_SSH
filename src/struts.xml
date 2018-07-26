@@ -19,6 +19,7 @@
             <interceptor-stack name="auth-default">   
                 <interceptor-ref name="authorityInterceptor" />   
                 <interceptor-ref name="categoryNamesBelowSearchInterceptor" />
+                <interceptor-ref name="cartTotalItemNumberInterceptor" />
                 <interceptor-ref name="defaultStack" />   
             </interceptor-stack> 
 		</interceptors>
