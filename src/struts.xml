@@ -12,6 +12,15 @@
 	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
 	<constant name="struts.objectFactory" value="spring" />
 	<package name="basicstruts" extends="struts-default">
-
+		<interceptors>
+			<interceptor name="authorityInterceptor"
+				class="pers.anshay.tmall.interceptor.AuthInterceptor"></interceptor>
+			<!-- 拦截器 -->
+			<interceptor-stack name="auth-default">
+				<interceptor-ref name="authorityInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="auth-default"></default-interceptor-ref>
 	</package>
 </struts>
