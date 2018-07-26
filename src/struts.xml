@@ -15,11 +15,12 @@
 		<interceptors>
 			<interceptor name="authorityInterceptor"
 				class="pers.anshay.tmall.interceptor.AuthInterceptor"></interceptor>
-			<!-- 拦截器 -->
-			<interceptor-stack name="auth-default">
-				<interceptor-ref name="authorityInterceptor" />
-				<interceptor-ref name="defaultStack" />
-			</interceptor-stack>
+			<!-- 拦截器栈 -->   
+            <interceptor-stack name="auth-default">   
+                <interceptor-ref name="authorityInterceptor" />   
+                <interceptor-ref name="categoryNamesBelowSearchInterceptor" />
+                <interceptor-ref name="defaultStack" />   
+            </interceptor-stack> 
 		</interceptors>
 		<default-interceptor-ref name="auth-default"></default-interceptor-ref>
 	</package>
