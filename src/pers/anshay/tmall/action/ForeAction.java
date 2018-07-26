@@ -1,6 +1,8 @@
 package pers.anshay.tmall.action;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.springframework.web.util.HtmlUtils;
@@ -12,6 +14,8 @@ import pers.anshay.tmall.comparator.ProductDateComparator;
 import pers.anshay.tmall.comparator.ProductPriceComparator;
 import pers.anshay.tmall.comparator.ProductReviewComparator;
 import pers.anshay.tmall.comparator.ProductSaleCountComparator;
+import pers.anshay.tmall.pojo.OrderItem;
+import pers.anshay.tmall.pojo.Product;
 import pers.anshay.tmall.pojo.User;
 import pers.anshay.tmall.service.ProductImageService;
 
@@ -22,10 +26,118 @@ import pers.anshay.tmall.service.ProductImageService;
  */
 public class ForeAction extends Action4Result {
 
-	/* bug：msg无法传递到前台 */
-	// 返回前台的信息
-	String msg;
+	@Action("forecart")
+	public String cart() {
+		User user = (User) ActionContext.getContext().getSession().get("user");
+		orderItems = orderItemService.list("user", user, "order", null);
+		for (OrderItem orderItem : orderItems) {
+			productImageService.setFirstProductImage(orderItem.getProduct());
+		}
+		return "cart.jsp";
+	}
 
+	/**
+	 * 接下来就是新增订单项OrderItem， 新增订单项要考虑两个情况
+	 * 
+	 * a.如果已经存在这个产品对应的OrderItem，并且还没有生成订单，即还在购物车中。 那么就应该在对应的OrderItem基础上，调整数量 a.1
+	 * 基于用户对象user，查询没有生成订单的订单项集合 a.2 遍历这个集合 a.3 如果产品是一样的话，就进行数量追加 a.4 获取这个订单项的 id
+	 * 
+	 * b. 如果不存在对应的OrderItem,那么就新增一个订单项OrderItem b.1 生成新的订单项 b.2 设置数量，用户和产品 b.3
+	 * 插入到数据库 b.4 获取这个订单项的 id
+	 * 
+	 */
+	@Action("foreaddCart")
+	public String addCart() {
+		User user = (User) ActionContext.getContext().getSession().get("user");
+		boolean found = false;
+		List<OrderItem> ois = orderItemService.list("user", user, "order", null);
+		// 在购物车里遍历所有产品，如果有匹配，增加相应的产品的数量
+		for (OrderItem oi : ois) {
+			if (oi.getProduct().getId() == product.getId()) {
+				oi.setNumber(oi.getNumber() + num);
+				orderItemService.update(oi);
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			OrderItem oi = new OrderItem();
+			oi.setUser(user);
+			oi.setNumber(num);
+			oi.setProduct(product);
+			orderItemService.save(oi);
+		}
+
+		return "success.jsp";
+	}
+
+	@Action("forebuy")
+	public String buy() {
+		orderItems = new ArrayList<>();
+		for (int oiid : oiids) {
+			OrderItem oi = (OrderItem) orderItemService.get(oiid);
+			total += oi.getProduct().getPromotePrice() * oi.getNumber();
+			orderItems.add(oi);
+			productImageService.setFirstProductImage(oi.getProduct());
+		}
+		ActionContext.getContext().getSession().put("orderItems", orderItems);
+		return "buy.jsp";
+	}
+
+	/**
+	 * 商品信息栏点击立即购买 首先从session中获取用户对象user
+	 * 
+	 * 接下来就是新增订单项OrderItem， 新增订单项要考虑两个情况
+	 * 
+	 * 果已经存在这个产品对应的OrderItem，并且还没有生成订单，即还在购物车中。 那么就应该在对应的OrderItem基础上，调整数量 a.1
+	 * 基于用户对象user，查询没有生成订单的订单项集合 a.2 遍历这个集合 a.3 如果产品是一样的话，就进行数量追加 a.4 获取这个订单项的 id
+	 * 
+	 * 如果不存在对应的OrderItem,那么就新增一个订单项OrderItem b.1 生成新的订单项 b.2 设置数量，用户和产品 b.3 插入到数据库
+	 * b.4 获取这个订单项的 id
+	 * 
+	 * 最后， 基于这个订单项id客户端跳转到结算页面的 对应的/forebu
+	 */
+	@Action("forebuyone")
+	public String buyone() {
+		User user = (User) ActionContext.getContext().getSession().get("user");
+		boolean found = false;
+		List<OrderItem> ois = orderItemService.list("user", user, "order", null);
+		for (OrderItem oi : ois) {
+			if (oi.getProduct().getId() == product.getId()) {
+				oi.setNumber(oi.getNumber() + num);
+				orderItemService.update(oi);
+				found = true;
+				oiid = oi.getId();
+				break;
+			}
+		}
+		if (!found) {
+			OrderItem oi = new OrderItem();
+			oi.setUser(user);
+			oi.setNumber(num);
+			oi.setProduct(product);
+			orderItemService.save(oi);
+			oiid = oi.getId();
+		}
+		return "buyPage";
+	}
+
+	/**
+	 * 查询
+	 */
+	@Action("foresearch")
+	public String search() {
+		products = productService.search(keyword, 0, 20);
+		productService.setSaleAndReviewNumber(products);
+		for (Product product : products) {
+			productImageService.setFirstProductImage(product);
+		}
+		return "searchResult.jsp";
+	}
+
+	/**
+	 * 点击顶部分类导航
+	 */
 	@Action("forecategory")
 	public String category() {
 		// 持久化对象的深沉意义，没有会怎样
@@ -41,7 +153,7 @@ public class ForeAction extends Action4Result {
 			case "date":
 				Collections.sort(category.getProducts(), new ProductDateComparator());
 				break;
-			case "salcount":
+			case "saleCount":
 				Collections.sort(category.getProducts(), new ProductSaleCountComparator());
 				break;
 			case "price":
@@ -55,6 +167,9 @@ public class ForeAction extends Action4Result {
 		return "category.jsp";
 	}
 
+	/**
+	 * 在点击立即购买时弹出登录窗口（这个窗口和前面的登录窗口的区别）
+	 */
 	@Action("foreloginAjax")
 	public String loginAjax() {
 		user.setName(HtmlUtils.htmlEscape(user.getName()));
@@ -62,11 +177,15 @@ public class ForeAction extends Action4Result {
 
 		if (null == user_session) {
 			return "fail.jsp";
-		} else {
-			return "success.jsp";
 		}
+		ActionContext.getContext().getSession().put("user", user_session);
+		return "success.jsp";
+
 	}
 
+	/**
+	 * 检查当前登录状态（在哪里调用的）
+	 */
 	@Action("forecheckLogin")
 	public String checkLogin() {
 		User u = (User) ActionContext.getContext().getSession().get("user");
@@ -100,13 +219,32 @@ public class ForeAction extends Action4Result {
 		return "product.jsp";
 	}
 
-	@Action("forehome")
-	public String home() {
-		categorys = categoryService.list();
-		productService.fill(categorys);
-		productService.fillByRow(categorys);
-		return "home.jsp";
+	/**
+	 * 登出
+	 */
+	@Action("forelogout")
+	public String logout() {
+		// 在session中把当前用户信息去掉即完成登出功能
+		ActionContext.getContext().getSession().remove("user");
+		return "homePage";
+	}
 
+	/* 这个user怎么来的：：： */
+	/**
+	 * 登陆
+	 */
+	@Action("forelogin")
+	public String login() {
+		user.setName(HtmlUtils.htmlEscape(user.getName()));
+		// 根据前台传过来的用户名和密码去查询用户，返回结果赋给user_session
+		User user_session = userService.get(user.getName(), user.getPassword());
+		if (null == user_session) {
+			/* bug：msg无法传递到前台 */
+			msg = "账号密码错误";
+			return "login.jsp";
+		}
+		ActionContext.getContext().getSession().put("user", user_session);
+		return "homePage";
 	}
 
 	@Action("foreregister")
@@ -121,27 +259,13 @@ public class ForeAction extends Action4Result {
 		return "registerSuccessPage";
 	}
 
-	/* 这个user怎么来的：：： */
-	@Action("forelogin")
-	public String login() {
-		user.getName();
-		// 获取前台传过来的用户名（这一步有什么作用？？）
-		user.setName(HtmlUtils.htmlEscape(user.getName()));
-		// 根据前台传过来的用户名和密码去查询用户，返回结果赋给user_session
-		User user_session = userService.get(user.getName(), user.getPassword());
-		if (null == user_session) {
+	@Action("forehome")
+	public String home() {
+		categorys = categoryService.list();
+		productService.fill(categorys);
+		productService.fillByRow(categorys);
+		return "home.jsp";
 
-			msg = "账号密码错误";
-			return "login.jsp";
-		}
-		ActionContext.getContext().getSession().put("user", user_session);
-		return "homePage";
 	}
 
-	@Action("forelogout")
-	public String logout() {
-		// 在session中把当前用户信息去掉即完成登出功能
-		ActionContext.getContext().getSession().remove("user");
-		return "homePage";
-	}
 }

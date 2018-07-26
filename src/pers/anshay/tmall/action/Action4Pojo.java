@@ -4,6 +4,7 @@ import java.util.List;
 
 import pers.anshay.tmall.pojo.Category;
 import pers.anshay.tmall.pojo.Order;
+import pers.anshay.tmall.pojo.OrderItem;
 import pers.anshay.tmall.pojo.Product;
 import pers.anshay.tmall.pojo.ProductImage;
 import pers.anshay.tmall.pojo.Property;
@@ -25,6 +26,7 @@ public class Action4Pojo extends Action4Pagination {
 	protected User user;
 	protected Order order;
 	protected Review review;
+	protected OrderItem orderItem;
 
 	protected List<Category> categorys;
 	protected List<Property> propertys;
@@ -35,6 +37,7 @@ public class Action4Pojo extends Action4Pagination {
 	protected List<User> users;
 	protected List<Order> orders;
 	protected List<Review> reviews;
+	protected List<OrderItem> orderItems;
 
 	public Category getCategory() {
 		return category;
@@ -226,6 +229,36 @@ public class Action4Pojo extends Action4Pagination {
 	 */
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
+	}
+
+	/**
+	 * @return the orderItem
+	 */
+	public OrderItem getOrderItem() {
+		return orderItem;
+	}
+
+	/**
+	 * @param orderItem
+	 *            the orderItem to set
+	 */
+	public void setOrderItem(OrderItem orderItem) {
+		this.orderItem = orderItem;
+	}
+
+	/**
+	 * @return the orderItems
+	 */
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	/**
+	 * @param orderItems
+	 *            the orderItems to set
+	 */
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 
 }

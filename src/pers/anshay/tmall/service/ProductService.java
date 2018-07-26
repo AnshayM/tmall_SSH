@@ -44,4 +44,9 @@ public interface ProductService extends BaseService {
 	 */
 	public void setSaleAndReviewNumber(Product product);
 
+	/**
+	 * 根据关键字模糊查询
+	 */
+	public List<Product> search(String keyword, int start, int count);
+
 }
