@@ -26,6 +26,34 @@ import pers.anshay.tmall.service.ProductImageService;
  */
 public class ForeAction extends Action4Result {
 
+	/**
+	 * 删除
+	 */
+	@Action("foredeleteOrderItem")
+	public String deleteOrderItem() {
+		orderItemService.delete(orderItem);
+		return "success.jsp";
+	}
+
+	/**
+	 * 修改数量
+	 */
+	@Action("forechangeOrderItem")
+	public String changeOrderItem() {
+		User user = (User) ActionContext.getContext().getSession().get("user");
+		List<OrderItem> ois = orderItemService.list("user", user, "order", null);
+
+		for (OrderItem oi : ois) {
+			oi.setNumber(num);
+			orderItemService.update(oi);
+			break;
+		}
+		return "success.jsp";
+	}
+
+	/**
+	 * 进入购物车
+	 */
 	@Action("forecart")
 	public String cart() {
 		User user = (User) ActionContext.getContext().getSession().get("user");
@@ -37,7 +65,7 @@ public class ForeAction extends Action4Result {
 	}
 
 	/**
-	 * 接下来就是新增订单项OrderItem， 新增订单项要考虑两个情况
+	 * 新增订单项OrderItem， 新增订单项要考虑两个情况
 	 * 
 	 * a.如果已经存在这个产品对应的OrderItem，并且还没有生成订单，即还在购物车中。 那么就应该在对应的OrderItem基础上，调整数量 a.1
 	 * 基于用户对象user，查询没有生成订单的订单项集合 a.2 遍历这个集合 a.3 如果产品是一样的话，就进行数量追加 a.4 获取这个订单项的 id
@@ -71,6 +99,9 @@ public class ForeAction extends Action4Result {
 		return "success.jsp";
 	}
 
+	/**
+	 * 购买
+	 */
 	@Action("forebuy")
 	public String buy() {
 		orderItems = new ArrayList<>();
@@ -247,6 +278,9 @@ public class ForeAction extends Action4Result {
 		return "homePage";
 	}
 
+	/**
+	 * 注册
+	 */
 	@Action("foreregister")
 	public String register() {
 		user.setName(HtmlUtils.htmlEscape(user.getName()));
@@ -259,6 +293,9 @@ public class ForeAction extends Action4Result {
 		return "registerSuccessPage";
 	}
 
+	/**
+	 * 前台主页
+	 */
 	@Action("forehome")
 	public String home() {
 		categorys = categoryService.list();
