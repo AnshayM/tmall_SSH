@@ -23,14 +23,6 @@ public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
 
 	protected Class clazz;
 
-	public static void main(String[] args) {
-		new CategoryServiceImpl().showClass();
-	}
-
-	public void showClass() {
-		System.out.println(clazz);
-	}
-
 	/**
 	 * 在构造方法中，借助异常处理和反射得到Category.class或者Product.class。
 	 * 即要做到哪个类继承了BaseServiceImpl,clazz 就对应哪个类对象。 比如是
@@ -47,15 +39,15 @@ public class BaseServiceImpl extends ServiceDelegateDAO implements BaseService {
 			String serviceImpleClassName = stes[1].getClassName();
 			try {
 				Class serviceImplClazz = Class.forName(serviceImpleClassName);
-				//获取类名
+				// 获取类名
 				String serviceImpleClassSimpleName = serviceImplClazz.getSimpleName();
-				//去掉类名后缀的“ServiceImpl”
+				// 去掉类名后缀的“ServiceImpl”
 				String pojoSimpleName = serviceImpleClassSimpleName.replaceAll("ServiceImpl", "");
-				//修改包名
+				// 修改包名
 				String pojoPackageName = serviceImplClazz.getPackage().getName().replaceAll(".service.impl", ".pojo");
-				//到这里完成了从指定serviceImpleClassName获取关键字符来获取到相应的pojo类的完整包名和类名
+				// 到这里完成了从指定serviceImpleClassName获取关键字符来获取到相应的pojo类的完整包名和类名
 				String pojoFullName = pojoPackageName + "." + pojoSimpleName;
-				//通过完整类名获取到类实体
+				// 通过完整类名获取到类实体
 				clazz = Class.forName(pojoFullName);
 			} catch (ClassNotFoundException e1) {
 				e1.printStackTrace();
