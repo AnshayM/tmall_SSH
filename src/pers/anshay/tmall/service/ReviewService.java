@@ -3,7 +3,9 @@ package pers.anshay.tmall.service;
 import java.util.List;
 
 import pers.anshay.tmall.pojo.Category;
+import pers.anshay.tmall.pojo.Order;
 import pers.anshay.tmall.pojo.Product;
+import pers.anshay.tmall.pojo.Review;
 
 /**
  * @author Anshay
@@ -11,5 +13,7 @@ import pers.anshay.tmall.pojo.Product;
  * @explain 导航下面的产品列表
  */
 public interface ReviewService extends BaseService {
+
+	public void saveReviewAndUpdateOrderStatus(Review review, Order order);
 
 }

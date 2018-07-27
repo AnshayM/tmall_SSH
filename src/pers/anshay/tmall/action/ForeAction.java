@@ -30,13 +30,47 @@ import pers.anshay.tmall.service.ProductImageService;
  */
 public class ForeAction extends Action4Result {
 
+	@Action("foredoreview")
+	public String doreview() {
+		t2p(order);
+		t2p(product);
+		order.setStatus(OrderService.finish);
+
+		String content = review.getContent();
+		content = HtmlUtils.htmlEscape(content);
+
+		User user = (User) ActionContext.getContext().getSession().get("user");
+
+		review.setContent(content);
+		review.setProduct(product);
+		review.setCreateDate(new Date());
+		review.setUser(user);
+
+		reviewService.saveReviewAndUpdateOrderStatus(review, order);
+		showonly = true;
+		return "reviewPage";
+	}
+
+	/**
+	 * 评价
+	 */
+	@Action("forereview")
+	public String review() {
+		t2p(order);
+		orderItemService.fill(order);
+		product = order.getOrderItems().get(0).getProduct();
+		reviews = reviewService.listByParent(product);
+		productService.setSaleAndReviewNumber(product);
+		return "review.jsp";
+	}
+
 	/**
 	 * 删除订单
 	 */
 	@Action("foredeleteOrder")
 	public String deleteOrder() {
 		t2p(order);
-		order.setStatus(orderService.delete);
+		order.setStatus(OrderService.delete);
 		orderService.update(order);
 		return "success.jsp";
 	}
@@ -66,7 +100,7 @@ public class ForeAction extends Action4Result {
 	/**
 	 * 查询我的订单
 	 */
-	@Action("foreboughat")
+	@Action("forebought")
 	public String bought() {
 		User user = (User) ActionContext.getContext().getSession().get("user");
 		orders = orderService.listByUserWithoutDelete(user);
@@ -90,7 +124,7 @@ public class ForeAction extends Action4Result {
 	 * 支付
 	 */
 	@Action("forealipay")
-	public String forelipay() {
+	public String forealipay() {
 		return "alipay.jsp";
 	}
 
@@ -111,11 +145,11 @@ public class ForeAction extends Action4Result {
 		order.setCreateDate(new Date());
 		order.setUser(user);
 		// 新建的订单状态设定为待支付
-		order.setStatus(orderService.waitPay);
+		order.setStatus(OrderService.waitPay);
 
 		total = orderService.createOrder(order, ois);
 
-		return "success.jsp";
+		return "alipayPage";
 	}
 
 	/**
@@ -136,9 +170,11 @@ public class ForeAction extends Action4Result {
 		List<OrderItem> ois = orderItemService.list("user", user, "order", null);
 
 		for (OrderItem oi : ois) {
-			oi.setNumber(num);
-			orderItemService.update(oi);
-			break;
+			if (oi.getProduct().getId() == product.getId()) {
+				oi.setNumber(num);
+				orderItemService.update(oi);
+				break;
+			}
 		}
 		return "success.jsp";
 	}
