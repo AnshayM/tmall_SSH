@@ -2,8 +2,6 @@ package pers.anshay.tmall.service.impl;
 
 import java.util.List;
 
-import javax.persistence.Transient;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +37,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 		save(order);
 		float total = 0;
 		for (OrderItem oi : ois) {
+			oi.setOrder(order);
 			orderItemService.update(oi);
 			total += oi.getProduct().getPromotePrice() * oi.getNumber();
 		}
