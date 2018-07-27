@@ -1,5 +1,10 @@
 package pers.anshay.tmall.service;
 
+import java.util.List;
+
+import pers.anshay.tmall.pojo.Order;
+import pers.anshay.tmall.pojo.OrderItem;
+
 /**
  * @author Anshay
  * @date 2018年7月17日
@@ -12,4 +17,9 @@ public interface OrderService extends BaseService {
 	public static final String waitReview = "waitReview";
 	public static final String finish = "finish";
 	public static final String delete = "delete";
+
+	/**
+	 * 生成订单,结算总价
+	 */
+	public float createOrder(Order order, List<OrderItem> ois);
 }

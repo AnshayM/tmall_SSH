@@ -1,9 +1,12 @@
 package pers.anshay.tmall.action;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.xwork.math.RandomUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.springframework.web.util.HtmlUtils;
 
@@ -17,6 +20,7 @@ import pers.anshay.tmall.comparator.ProductSaleCountComparator;
 import pers.anshay.tmall.pojo.OrderItem;
 import pers.anshay.tmall.pojo.Product;
 import pers.anshay.tmall.pojo.User;
+import pers.anshay.tmall.service.OrderService;
 import pers.anshay.tmall.service.ProductImageService;
 
 /**
@@ -25,6 +29,50 @@ import pers.anshay.tmall.service.ProductImageService;
  * @explain 前台访问控制器
  */
 public class ForeAction extends Action4Result {
+
+	/**
+	 * 已支付状态
+	 */
+	@Action("forepayed")
+	public String payed() {
+		t2p(order);
+		order.setStatus(OrderService.waitDelivery);
+		order.setPayDate(new Date());
+		orderService.update(order);
+		return "payed.jsp";
+	}
+
+	/**
+	 * 支付
+	 */
+	@Action("forealipay")
+	public String forelipay() {
+		return "alipay.jsp";
+	}
+
+	/**
+	 * 生成订单
+	 */
+	@Action("forecreateOrder")
+	public String createOrder() {
+		List<OrderItem> ois = (List<OrderItem>) ActionContext.getContext().getSession().get("orderItems");
+		if (ois.isEmpty()) {
+			return "login.jsp";
+		}
+		User user = (User) ActionContext.getContext().getSession().get("user");
+		// 生成订单号的粗暴方法
+		String orderCode = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + RandomUtils.nextInt(10000);
+
+		order.setOrderCode(orderCode);
+		order.setCreateDate(new Date());
+		order.setUser(user);
+		// 新建的订单状态设定为待支付
+		order.setStatus(orderService.waitPay);
+
+		total = orderService.createOrder(order, ois);
+
+		return "success.jsp";
+	}
 
 	/**
 	 * 删除
