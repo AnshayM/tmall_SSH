@@ -1,9 +1,6 @@
 package pers.anshay.tmall.service;
 
-import java.util.List;
-
 import pers.anshay.tmall.pojo.Product;
-import pers.anshay.tmall.pojo.ProductImage;
 
 /**
  * @author Anshay
