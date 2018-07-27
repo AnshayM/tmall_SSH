@@ -4,6 +4,7 @@ import java.util.List;
 
 import pers.anshay.tmall.pojo.Order;
 import pers.anshay.tmall.pojo.OrderItem;
+import pers.anshay.tmall.pojo.User;
 
 /**
  * @author Anshay
@@ -22,4 +23,9 @@ public interface OrderService extends BaseService {
 	 * 生成订单,结算总价
 	 */
 	public float createOrder(Order order, List<OrderItem> ois);
+
+	/**
+	 * 查询当前用户的订单列表(即未删除的订单)
+	 */
+	public List<Order> listByUserWithoutDelete(User user);
 }

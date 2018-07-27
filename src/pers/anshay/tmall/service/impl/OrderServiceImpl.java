@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Transient;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pers.anshay.tmall.pojo.Order;
 import pers.anshay.tmall.pojo.OrderItem;
+import pers.anshay.tmall.pojo.User;
 import pers.anshay.tmall.service.OrderItemService;
 import pers.anshay.tmall.service.OrderService;
 
@@ -40,6 +43,15 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 			total += oi.getProduct().getPromotePrice() * oi.getNumber();
 		}
 		return total;
+	}
+
+	@Override
+	public List<Order> listByUserWithoutDelete(User user) {
+		DetachedCriteria dc = DetachedCriteria.forClass(clazz);
+		dc.add(Restrictions.eq("user", user));
+		// 不等于OrderService.delete
+		dc.add(Restrictions.ne("status", OrderService.delete));
+		return findByCriteria(dc);
 	}
 
 }

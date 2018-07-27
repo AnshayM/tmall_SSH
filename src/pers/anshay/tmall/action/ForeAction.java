@@ -31,7 +31,18 @@ import pers.anshay.tmall.service.ProductImageService;
 public class ForeAction extends Action4Result {
 
 	/**
-	 * 已支付状态
+	 * 查询我的订单
+	 */
+	@Action("foreboughat")
+	public String bought() {
+		User user = (User) ActionContext.getContext().getSession().get("user");
+		orders = orderService.listByUserWithoutDelete(user);
+		orderItemService.fill(orders);
+		return "bought.jsp";
+	}
+
+	/**
+	 * 跳转已支付状态
 	 */
 	@Action("forepayed")
 	public String payed() {
