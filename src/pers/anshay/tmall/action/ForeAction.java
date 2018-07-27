@@ -31,6 +31,39 @@ import pers.anshay.tmall.service.ProductImageService;
 public class ForeAction extends Action4Result {
 
 	/**
+	 * 删除订单
+	 */
+	@Action("foredeleteOrder")
+	public String deleteOrder() {
+		t2p(order);
+		order.setStatus(orderService.delete);
+		orderService.update(order);
+		return "success.jsp";
+	}
+
+	/**
+	 * 确认收货
+	 */
+	@Action("foreorderConfirmed")
+	public String orderConfirmed() {
+		t2p(order);
+		order.setStatus(OrderService.waitReview);
+		order.setConfirmDate(new Date());
+		orderService.update(order);
+		return "orderConfirmed.jsp";
+	}
+
+	/**
+	 * 确认付款
+	 */
+	@Action("foreconfirmPay")
+	public String confirmPay() {
+		t2p(order);
+		orderItemService.fill(order);
+		return "confirmPay.jsp";
+	}
+
+	/**
 	 * 查询我的订单
 	 */
 	@Action("foreboughat")
