@@ -32,7 +32,7 @@ public class CategoryNamesBelowSearchInterceptor extends AbstractInterceptor {
 	 */
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
-
+		String result = "";
 		ActionContext ctx = invocation.getInvocationContext();
 		HttpServletRequest request = (HttpServletRequest) ctx.get(StrutsStatics.HTTP_REQUEST);
 		ServletContext servletContext = (ServletContext) ctx.get(StrutsStatics.SERVLET_CONTEXT);
@@ -44,8 +44,8 @@ public class CategoryNamesBelowSearchInterceptor extends AbstractInterceptor {
 			List<Category> cs = categoryService.list();
 			ctx.getSession().put("cs", cs);
 		}
-		return invocation.invoke();
-
+		result = invocation.invoke();
+		return result;
 	}
 
 }
