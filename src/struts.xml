@@ -15,13 +15,19 @@
 		<interceptors>
 			<interceptor name="authorityInterceptor"
 				class="pers.anshay.tmall.interceptor.AuthInterceptor"></interceptor>
-			<!-- 拦截器栈 -->   
-            <interceptor-stack name="auth-default">   
-                <interceptor-ref name="authorityInterceptor" />   
-                <interceptor-ref name="categoryNamesBelowSearchInterceptor" />
-                <interceptor-ref name="cartTotalItemNumberInterceptor" />
-                <interceptor-ref name="defaultStack" />   
-            </interceptor-stack> 
+			<interceptor name="categoryNamesBelowSearchInterceptor"
+				class="pers.anshay.tmall.interceptor.CategoryNamesBelowSearchInterceptor"></interceptor>
+			<interceptor name="cartTotalItemNumberInterceptor"
+				class="pers.anshay.tmall.interceptor.CartTotalItemNumberInterceptor"></interceptor>
+			<!-- 拦截器栈 -->
+			<interceptor-stack name="auth-default">
+				<interceptor-ref name="authorityInterceptor" />
+				<interceptor-ref
+					name="categoryNamesBelowSearchInterceptor" />
+				<interceptor-ref
+					name="cartTotalItemNumberInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
 		</interceptors>
 		<default-interceptor-ref name="auth-default"></default-interceptor-ref>
 	</package>
