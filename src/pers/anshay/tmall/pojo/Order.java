@@ -174,7 +174,7 @@ public class Order {
 	/**
 	 * @return the mobile
 	 */
-	public String getmobile() {
+	public String getMobile() {
 		return mobile;
 	}
 
@@ -182,7 +182,7 @@ public class Order {
 	 * @param mobile
 	 *            the mobile to set
 	 */
-	public void setmobile(String mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
