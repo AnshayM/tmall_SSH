@@ -16,7 +16,7 @@ import pers.anshay.tmall.util.Page;
 /**
  * @author Anshay
  * @date 2018年5月29日
- * @explain  商品分类的控制器
+ * @explain 商品分类的控制器
  */
 
 public class CategoryAction extends Action4Result {
@@ -69,9 +69,6 @@ public class CategoryAction extends Action4Result {
 	 */
 	@Action("admin_category_edit")
 	public String edit() {
-		// int id = category.getId();
-		// // category = categoryService.get(Category.class, id);
-		// category = (Category) categoryService.get(id);
 		t2p(category);
 		return "editCategory";
 	}

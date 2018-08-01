@@ -148,7 +148,6 @@ public class ForeAction extends Action4Result {
 		order.setStatus(OrderService.waitPay);
 
 		total = orderService.createOrder(order, ois);
-
 		return "alipayPage";
 	}
 

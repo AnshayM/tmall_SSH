@@ -4,7 +4,6 @@
 package pers.anshay.tmall.action;
 
 import java.util.Date;
-import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
 
@@ -14,7 +13,7 @@ import pers.anshay.tmall.util.Page;
 /**
  * @author Anshay
  * @createDate 2018年7月18日
- * @explain  订单的控制器
+ * @explain 订单的控制器
  */
 public class OrderAction extends Action4Result {
 
@@ -28,7 +27,7 @@ public class OrderAction extends Action4Result {
 		}
 		int total = orderService.total();
 		page.setTotal(total);
-		orders= orderService.listByPage(page);
+		orders = orderService.listByPage(page);
 		orderItemService.fill(orders);
 
 		return "listOrder";

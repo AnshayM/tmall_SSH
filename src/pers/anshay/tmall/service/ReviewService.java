@@ -1,10 +1,6 @@
 package pers.anshay.tmall.service;
 
-import java.util.List;
-
-import pers.anshay.tmall.pojo.Category;
 import pers.anshay.tmall.pojo.Order;
-import pers.anshay.tmall.pojo.Product;
 import pers.anshay.tmall.pojo.Review;
 
 /**

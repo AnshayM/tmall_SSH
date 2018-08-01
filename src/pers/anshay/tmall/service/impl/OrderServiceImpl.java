@@ -31,7 +31,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 	 * 
 	 * @return total,订单总价
 	 */
-	// 因为插入订单和修改订单要么都成功要么都失败，所以在方法前加利润事务注解
+	//事务管理会导致找不到transactionManager这个bean报错，目前不知道怎么解决。
 	@Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
 	public float createOrder(Order order, List<OrderItem> ois) {
 		save(order);
